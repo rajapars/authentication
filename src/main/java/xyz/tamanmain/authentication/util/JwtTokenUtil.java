@@ -1,4 +1,4 @@
-package xyz.tamanmain.authentication;
+package xyz.tamanmain.authentication.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

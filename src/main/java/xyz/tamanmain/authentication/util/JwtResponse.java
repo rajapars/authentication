@@ -1,4 +1,4 @@
-package xyz.tamanmain.authentication;
+package xyz.tamanmain.authentication.util;
 
 import java.io.Serializable;
 

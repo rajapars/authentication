@@ -1,4 +1,4 @@
-package xyz.tamanmain.authentication;
+package xyz.tamanmain.authentication.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

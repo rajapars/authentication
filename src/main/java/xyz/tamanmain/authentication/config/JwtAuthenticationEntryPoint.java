@@ -1,4 +1,4 @@
-package xyz.tamanmain.authentication;
+package xyz.tamanmain.authentication.config;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
