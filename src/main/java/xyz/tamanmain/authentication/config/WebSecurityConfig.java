@@ -47,8 +47,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+         String[] ignorePaths = {
+                 "/register",
+                 "/signin",
+                 // Swagger2
+                 "/v2/api-docs",
+                 "/configuration/ui",
+                 "/swagger-resources/**",
+                 "/swagger-ui.html",
+                 "/webjars/**"
+         };
+
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/register", "/signin").permitAll()
+                .authorizeRequests().antMatchers(ignorePaths).permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

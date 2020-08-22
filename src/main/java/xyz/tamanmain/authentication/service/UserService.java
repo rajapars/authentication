@@ -1,4 +1,6 @@
-package xyz.tamanmain.authentication.user;
+package xyz.tamanmain.authentication.service;
+
+import xyz.tamanmain.authentication.model.User;
 
 public interface UserService {
 

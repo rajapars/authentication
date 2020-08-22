@@ -1,5 +1,8 @@
-package xyz.tamanmain.authentication.user;
+package xyz.tamanmain.authentication.controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +13,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
-import xyz.tamanmain.authentication.util.JwtResponse;
+import xyz.tamanmain.authentication.model.User;
+import xyz.tamanmain.authentication.model.request.SignInRequest;
+import xyz.tamanmain.authentication.model.response.SignInResponse;
+import xyz.tamanmain.authentication.service.UserService;
 import xyz.tamanmain.authentication.util.JwtTokenUtil;
 
 import java.util.ArrayList;
@@ -29,9 +35,14 @@ public class UserController {
     private JwtTokenUtil jwtTokenUtil;
 
     @GetMapping("/verify")
+    @ApiOperation(value = "Verify user token")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "Bearer access_token", required = true, dataType = "string", paramType = "header")
+    })
     public void verifyUserToken() {}
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register", produces = "application/json")
+    @ApiOperation(value = "Register new user")
     public ResponseEntity<User> register(@RequestBody User user) {
         User newUser = userService.register(user);
         if (newUser != null) {
@@ -41,8 +52,9 @@ public class UserController {
         return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
     }
 
-    @PostMapping("/signin")
-    public ResponseEntity<JwtResponse> signin(@RequestBody User user) throws Exception {
+    @PostMapping(value = "/signin", produces = "application/json")
+    @ApiOperation(value = "Sign In using username and password")
+    public ResponseEntity<SignInResponse> signin(@RequestBody(required = true) SignInRequest user) throws Exception {
         authenticate(user);
 
         User currentUser = userService.findByUsername(user.getUsername());
@@ -56,10 +68,10 @@ public class UserController {
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token));
+        return ResponseEntity.ok(new SignInResponse(token));
     }
 
-    private void authenticate(User user) throws Exception {
+    private void authenticate(SignInRequest user) throws Exception {
         UsernamePasswordAuthenticationToken userPassToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         try {
             authenticationManager.authenticate(userPassToken);

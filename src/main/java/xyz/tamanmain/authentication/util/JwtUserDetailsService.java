@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import xyz.tamanmain.authentication.user.User;
-import xyz.tamanmain.authentication.user.UserService;
+import xyz.tamanmain.authentication.model.User;
+import xyz.tamanmain.authentication.service.UserService;
 
 import java.util.ArrayList;
 

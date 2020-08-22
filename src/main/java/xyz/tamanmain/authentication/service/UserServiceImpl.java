@@ -1,8 +1,10 @@
-package xyz.tamanmain.authentication.user;
+package xyz.tamanmain.authentication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import xyz.tamanmain.authentication.model.User;
+import xyz.tamanmain.authentication.repository.UserRepository;
 
 import java.util.Optional;
 
